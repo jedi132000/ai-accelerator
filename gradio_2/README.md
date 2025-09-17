@@ -21,7 +21,7 @@ pip install -r requirements.txt
 
 ## Running the App
 
-Standard run (production mode):
+Standard run :
 ```bash
 python app.py
 ```
