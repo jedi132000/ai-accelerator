@@ -25,3 +25,22 @@ streamlit run 01_hello_world.py
 ```
 
 Each example builds upon the previous one, introducing new concepts incrementally.
+
+## OpenAI API Key / Secrets
+
+The examples that call OpenAI require an API key. You can provide it in one of two ways:
+
+- Add it to `.streamlit/secrets.toml` in this folder:
+
+```
+OPENAI_API_KEY = "your-real-key-here"
+```
+
+- Or set the environment variable before running Streamlit:
+
+```bash
+export OPENAI_API_KEY="your-real-key-here"
+streamlit run 01_streamlit_basics/ai_powered_text.py
+```
+
+Never commit real API keys to the repository. Use CI or deployment secrets for production.
