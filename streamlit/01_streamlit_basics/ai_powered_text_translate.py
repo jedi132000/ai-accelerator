@@ -239,6 +239,7 @@ uploaded_file = st.file_uploader("Upload a text file (.txt) for document transla
 csv_file = st.file_uploader("Or upload a CSV for batch translation (one text per row, first column)", type=['csv'])
 glossary_file = st.file_uploader("Optional: upload glossary as JSON (term->replacement)", type=['json'])
 do_pron = st.checkbox("Generate pronunciation guides (may use OpenAI)", value=False)
+compute_confidence = st.checkbox("Compute translation confidence for batch items", value=True)
 
 if st.button("Process / Translate ▶️"):
     if not input_text:
@@ -309,7 +310,16 @@ if st.button("Process / Translate ▶️"):
                 with st.spinner('Running batch translation...'):
                     results = batch_translate(texts, target if target != 'auto' else 'en', source, glossary, do_pron)
                 st.subheader('🧾 Batch results')
-                st.write(results)
+                # present results in a readable format and include confidence/pronunciation
+                for r in results:
+                    st.markdown(f"**Original:** {r.get('original')}  ")
+                    st.markdown(f"- Detected: `{r.get('detected')}`  ")
+                    st.markdown(f"- Translated: {r.get('translated')}  ")
+                    if compute_confidence:
+                        st.markdown(f"- Confidence: **{r.get('confidence', 0):.2%}**  ")
+                    if r.get('pronunciation'):
+                        st.info(f"Pronunciation: {r.get('pronunciation')}")
+                    st.write('---')
                 st.download_button('Download batch results (JSON)', data=json.dumps(results, ensure_ascii=False, indent=2), file_name='batch_results.json', mime='application/json')
 
 # Conversation history UI
