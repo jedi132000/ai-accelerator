@@ -1,3 +1,44 @@
+# Translation Chatbot (compact)
+
+Quick start
+
+1. Create and activate a Python venv (optional if you already have `.venv`):
+
+```bash
+python -m venv .venv
+. .venv/bin/activate
+pip install -r requirements.txt
+```
+
+2. Set your OpenAI API key either as an environment variable:
+
+```bash
+export OPENAI_API_KEY="sk-..."
+```
+
+or place it in `01_streamlit_basics/.streamlit/secrets.toml` (local only) with:
+
+```toml
+[general]
+OPENAI_API_KEY = "sk-..."
+```
+
+3. Run the app from repository root:
+
+```bash
+./run_translate.sh
+```
+
+Features
+- Auto-detect source language
+- Translate + run LLM tasks (summarize, sentiment, improve writing)
+- Conversation history stored during session
+- Toggle to show/hide cultural notes produced by the model
+
+Rotate an exposed API key (recommended)
+- Go to https://platform.openai.com/account/api-keys
+- Revoke the compromised key and create a new one
+- Update your environment variable or `secrets.toml` with the new key
 # Streamlit Basics - Teaching Materials
 
 This folder contains progressive examples to teach Streamlit fundamentals to experienced tech professionals.
