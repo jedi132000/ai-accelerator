@@ -65,6 +65,19 @@ if "messages" not in st.session_state:
     st.session_state.messages = []
 
 with st.sidebar:
+    st.markdown("<hr>", unsafe_allow_html=True)
+    st.subheader("OpenAI Model Selection")
+    openai_models = [
+        "gpt-3.5-turbo",
+        "gpt-3.5-turbo-16k",
+        "gpt-4",
+        "gpt-4-turbo",
+        "gpt-4o"
+    ]
+    if "openai_model" not in st.session_state:
+        st.session_state.openai_model = openai_models[0]
+    selected_model = st.selectbox("Model", openai_models, index=openai_models.index(st.session_state.openai_model))
+    st.session_state.openai_model = selected_model
     st.header("🧑‍🎤 Choose Personality")
     persona_options = list(PERSONALITIES.keys())
     default_idx = persona_options.index(st.session_state.current_personality)
@@ -125,7 +138,7 @@ if st.button("Send", type="primary") or (user_input and not st.session_state.get
         openai.api_key = st.secrets["OPENAI_API_KEY"] if "OPENAI_API_KEY" in st.secrets else "sk-..."
         try:
             response = openai.chat.completions.create(
-                model="gpt-3.5-turbo",
+                model=st.session_state.openai_model,
                 messages=messages
             )
             ai_response = response.choices[0].message.content
