@@ -48,6 +48,7 @@ LANG_MAP = {
     "nl": "Dutch",
     "ar": "Arabic",
     "hi": "Hindi",
+    "yo": "Yoruba",
 }
 
 # Mapping UI codes to standardized ISO 639-1 codes (where applicable)
@@ -67,6 +68,7 @@ LANG_CODE_MAP = {
     'nl': 'nl',
     'ar': 'ar',
     'hi': 'hi',
+    
 }
 
 
@@ -191,7 +193,7 @@ def two_stage_translate_and_process(task_prompt_template: str, user_text: str, t
     }
 
 
-st.title("💬 LLM Chat + Translation")
+st.title("💬 LLM  Text Processor + Translation")
 
 input_text = st.text_area("Enter text to process or translate:")
 
